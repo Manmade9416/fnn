@@ -1,0 +1,15 @@
+# fnn
+
+```txt
+fnn stands for 'file name normaliser'. This program simply replaces the spaces
+in a file name with an underscore to make working with files easier.
+Filenames with spaces can be annoying in the cli because of the amount
+escaping you have to do when working with the names.
+```
+
+# Installation
+
+```txt
+To install simply copy or move the script into your bin dir after
+making sure it has executable permissions.
+```

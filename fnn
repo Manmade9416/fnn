@@ -1,0 +1,52 @@
+#! /usr/bin/python
+import argparse
+import os
+
+def getpath(p2f):
+
+    p = p2f
+    # Check if '~' at p2f[0]
+    # If yes replace it with path given by HOME env variable
+    # We do this to get absolute path to then check if it exists
+    if "~" in p[0]:
+        p = os.getenv("HOME") + p[1::]
+    
+    if os.path.exists(p):
+        if (os.path.isfile(p)):
+            return p
+        else:
+            return 2
+    else:
+        return 1
+
+def renamefile(paths):
+    for p in paths:
+        path = getpath(p)
+        if (path != 1 and path != 2): 
+            dirname = os.path.dirname(path)
+            basename = os.path.basename(path)
+            basename = basename.replace(" ", "_")
+        
+            newfullpath = os.path.join(dirname, basename)
+            os.rename(path, newfullpath)
+
+        elif (path == 1):
+            # No such file
+            print(f"fnn: No such file or Dir named '{p}'")
+        elif (path == 2):
+            # Cannot work on dirs
+            print(f"fnn: '{p}' is a directory")
+    return 0
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("PATH", help="PATH to File", nargs="+")
+    args = parser.parse_args()
+
+    renamefile(args.PATH)
+
+    return 0
+
+if __name__ == "__main__":
+    main()
